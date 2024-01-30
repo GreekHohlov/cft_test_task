@@ -8,6 +8,8 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/artifacts/cft_test_task_jar.xml
+.idea/uiDesigner.xml
 *.iws
 *.iml
 *.ipr

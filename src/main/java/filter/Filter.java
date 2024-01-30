@@ -18,6 +18,7 @@ public class Filter {
     private List<String> stringList = new ArrayList<>();
     private List<Long> integerList = new ArrayList<>();
     private List<Double> doubleList = new ArrayList<>();
+
     public void setParameters(String[] args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-o") && !args[i + 1].startsWith("-")) {
@@ -44,6 +45,7 @@ public class Filter {
         }
         writeFiles();
     }
+
     private void readFile(String file) {
         String tempLine;
         try (FileReader fileReader = new FileReader(file);
@@ -64,6 +66,7 @@ public class Filter {
             System.out.println("File not found: " + file);
         }
     }
+
     private void writeFiles() {
         if (!new File(writePath).exists()) {
             new File(writePath).mkdirs();
@@ -71,7 +74,7 @@ public class Filter {
         if (!integerList.isEmpty()) {
             try (FileWriter fileWriter = new FileWriter(writePath + namePrefix + "integers.txt", (!writeType.isEmpty()))) {
                 Long sum = 0L;
-                for (Long element: integerList) {
+                for (Long element : integerList) {
                     if (!(maxInteger == null)) {
                         maxInteger = Math.max(maxInteger, element);
                         minInteger = Math.min(minInteger, element);
@@ -84,13 +87,13 @@ public class Filter {
                 }
                 printStatistic(sum);
             } catch (IOException e) {
-                System.out.println("File not created: " +  writePath + namePrefix + "integers.txt");
+                System.out.println("File not created: " + writePath + namePrefix + "integers.txt");
             }
         }
         if (!doubleList.isEmpty()) {
-            try (FileWriter fileWriter = new FileWriter(writePath + namePrefix + "floats.txt", (!writeType.isEmpty()))){
+            try (FileWriter fileWriter = new FileWriter(writePath + namePrefix + "floats.txt", (!writeType.isEmpty()))) {
                 Double sum = 0d;
-                for (Double element: doubleList) {
+                for (Double element : doubleList) {
                     if (!(maxDouble == null)) {
                         maxDouble = Math.max(maxDouble, element);
                         minDouble = Math.min(minDouble, element);
@@ -103,12 +106,12 @@ public class Filter {
                 }
                 printStatistic(sum);
             } catch (IOException e) {
-                System.out.println("File not created: " +  writePath + namePrefix + "floats.txt");
+                System.out.println("File not created: " + writePath + namePrefix + "floats.txt");
             }
         }
         if (!stringList.isEmpty()) {
-            try (FileWriter fileWriter = new FileWriter(writePath + namePrefix + "strings.txt", (!writeType.isEmpty()))){
-                for (String element: stringList) {
+            try (FileWriter fileWriter = new FileWriter(writePath + namePrefix + "strings.txt", (!writeType.isEmpty()))) {
+                for (String element : stringList) {
                     if (!(maxStringLength == null)) {
                         maxStringLength = Math.max(maxStringLength, element.length());
                         minStringLength = Math.min(minStringLength, element.length());
@@ -120,10 +123,11 @@ public class Filter {
                 }
                 printStatistic();
             } catch (IOException e) {
-                System.out.println("File not created: " +  writePath + namePrefix + "strings.txt");
+                System.out.println("File not created: " + writePath + namePrefix + "strings.txt");
             }
         }
     }
+
     private void printStatistic() {
         System.out.println("String elements count: " + stringList.size());
         if (statisticType.equals("-f")) {
@@ -131,6 +135,7 @@ public class Filter {
             System.out.println("Maximum string length: " + maxStringLength);
         }
     }
+
     private void printStatistic(Long sum) {
         System.out.println("Integer element count: " + integerList.size());
         if (statisticType.equals("-f")) {
@@ -140,6 +145,7 @@ public class Filter {
             System.out.println("Integer average: " + sum * 1.0 / integerList.size());
         }
     }
+
     private void printStatistic(Double sum) {
         System.out.println("Float elements count: " + doubleList.size());
         if (statisticType.equals("-f")) {
